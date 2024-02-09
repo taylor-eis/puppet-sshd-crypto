@@ -4,9 +4,15 @@ class sshd_crypto (
 ) inherits $sshd_crypto::params
 {
   if $manage_sshd_crypto {
-    file { 'etc/crypto-policies/back-ends/opensshserver.config':
-      ensure => file,
-      contents => "CRYPTO_POLICY='$crypto_policy'"
+    service { 'sshd' :
+      ensure     => 'running',
+      enable     => true,
     }
+    file { 'etc/crypto-policies/back-ends/opensshserver.config':
+      ensure    => file,
+      content  => "CRYPTO_POLICY='$crypto_policy'",
+      notify    => Service['sshd']
+    }
+    
   }
 }
