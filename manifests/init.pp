@@ -14,8 +14,8 @@ class sshd_crypto (
   }
   if $manage_sshd_moduli {
     exec { 'strong_moduli':
-      command => "awk '\$5 >= $minimum_modulus' /etc/ssh/moduli > /etc/ssh/moduli.safe && mv -f /etc/ssh/moduli.safe /etc/ssh/moduli",
-      unless => "awk '($5 < 2047 && $1 != \"#\") {count++} END {exit count}' /etc/ssh/moduli"
+      command => "/bin/awk '\$5 >= $minimum_modulus' /etc/ssh/moduli > /etc/ssh/moduli.safe && mv -f /etc/ssh/moduli.safe /etc/ssh/moduli",
+      unless => "/bin/awk '($5 < 2047 && $1 != \"#\") {count++} END {exit count}' /etc/ssh/moduli"
     }
   }
 }
