@@ -8,7 +8,7 @@ class sshd_crypto (
   if $manage_sshd_crypto {
     file { '/etc/crypto-policies/back-ends/opensshserver.config':
       ensure    => file,
-      content  => "CRYPTO_POLICY='$crypto_policy'",
+      content  => "$crypto_policy",
       notify    => Service['sshd']
     }
   }
